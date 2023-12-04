@@ -34,7 +34,10 @@ public class MaterialDidaticoController implements Imprimivel {
         return apostilas;
     }
 
-    public List<MaterialDidatico> getMateriaisDidaticos() {
+    public List<MaterialDidatico> getMateriaisDidaticos() throws MDNaoEncontradoException {
+        if(materiaisDidaticos.isEmpty()) {
+            throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
+        }
         List<MaterialDidatico> todosMateriais = new ArrayList<>();
         todosMateriais.addAll(livros);
         todosMateriais.addAll(apostilas);
@@ -95,7 +98,7 @@ public class MaterialDidaticoController implements Imprimivel {
             throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
         }
         for (MaterialDidatico material : materiaisDidaticos) {
-            System.out.println(materiaisDidaticos.toString());
+            System.out.println(material.toString());
         }
     }
 

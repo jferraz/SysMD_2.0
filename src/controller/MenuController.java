@@ -90,6 +90,7 @@ public class MenuController {
     public void consultaTodosMd(){
         try {
             mdController.listarMateriaisDidaticos();
+            mdController.getMateriaisDidaticos();
         } catch (MDNaoEncontradoException e) {
             System.out.println(e.getMessage());
         }
