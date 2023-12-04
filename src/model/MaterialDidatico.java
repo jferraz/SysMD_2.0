@@ -67,13 +67,12 @@ public abstract class MaterialDidatico {
 
     @Override
     public String toString() {
-        return "MaterialDidatico{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", seguimento='" + seguimento + '\'' +
-                ", valor=" + valor +
-                ", quantidade=" + quantidade +
-                '}';
+        return "\nRelação de materiais didáticos: " +
+                "\nId: " + id +
+                "\nTítulo: " + titulo +
+                "\nTipo: " + tipo +
+                "\nSeguimento: " + seguimento +
+                "\nValor: " + valor +
+                "\nQuantidade: " + quantidade;
     }
 }

@@ -8,17 +8,16 @@ import java.nio.file.Paths;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
+import java.util.*;
 
 public class MaterialDidaticoController implements Imprimivel {
     private List<Livro> livros;
     private List<Apostila> apostilas;
     private List<MaterialDidatico> materiaisDidaticos;
-    private Map<String, List<Livro>> livrosPorISBN = new HashMap<>();
+    private Map<String, List<MaterialDidatico>> livroPorISBN = new HashMap<>();
+    private Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
 
+    Scanner sc = new Scanner(System.in);
 
     public MaterialDidaticoController() {
         this.materiaisDidaticos = new ArrayList<>();
@@ -26,33 +25,15 @@ public class MaterialDidaticoController implements Imprimivel {
         this.apostilas = new ArrayList<>();
     }
 
-    public List<Livro> getLivros() {
-        return livros;
-    }
-
-    public List<Apostila> getApostilas() {
-        return apostilas;
-    }
-
-    public List<MaterialDidatico> getMateriaisDidaticos() throws MDNaoEncontradoException {
-        if(materiaisDidaticos.isEmpty()) {
-            throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
-        }
-        List<MaterialDidatico> todosMateriais = new ArrayList<>();
-        todosMateriais.addAll(livros);
-        todosMateriais.addAll(apostilas);
-        return todosMateriais;
-    }
-
-    public void adicionaLivro(Livro livro){
-        this.livros.add(livro);
-    }
-    public void adicionaApostila(Apostila apostila){
-        this.apostilas.add(apostila);
-    }
     public void adicionarMD(MaterialDidatico material) {
-        this.materiaisDidaticos.add(material);
-        System.out.println("MD adicionado: " + material);
+        if (material instanceof Livro) {
+            Livro livro = (Livro) material;//DOWNCASTING
+            livroPorISBN.computeIfAbsent(livro.getISBN(), k -> new ArrayList<>()).add(livro);
+        } else if (material instanceof Apostila) {
+            Apostila apostila = (Apostila) material;
+            apostilasPorSKU.computeIfAbsent(apostila.getSKU(), k -> new ArrayList<>()).add(apostila);
+        }
+        materiaisDidaticos.add(material);
     }
     public void buscaLivroPorId(){
 
@@ -186,15 +167,95 @@ public class MaterialDidaticoController implements Imprimivel {
     }
     //IMPLEMENTAÇÃO DE MAP
     public void imprimeRelatorioISBN() throws MDNaoEncontradoException {
-        for (Map.Entry<String, List<Livro>> entrada : livrosPorISBN.entrySet()) {
-            System.out.println("ISBN: " + entrada.getKey());
-            for (Livro material : entrada.getValue()) {
-                System.out.println("Título: " + material.getTitulo());
-            }
-            System.out.println();
+        if(livroPorISBN.isEmpty()) {
+            throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
         }
-        throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
+        for (Map.Entry<String, List<MaterialDidatico>> entrada : livroPorISBN.entrySet()) {
+            System.out.println("ISBN: " + entrada.getKey());
+            for (MaterialDidatico material : entrada.getValue()) {
+                System.out.println("\nTítulo: " + material.getTitulo());
+            }
+        }
     }
+
+    public void imprimeRelatorioSKU() throws MDNaoEncontradoException {
+        if(apostilasPorSKU.isEmpty()) {
+            throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
+        }
+        for (Map.Entry<String, List<MaterialDidatico>> entrada : apostilasPorSKU.entrySet()) {
+            System.out.println("ISBN: " + entrada.getKey());
+            for (MaterialDidatico material : entrada.getValue()) {
+                System.out.println("\nTítulo: " + material.getTitulo());
+            }
+        }
+    }
+
+    public void editaLivro(int idLivro) {
+        //Livro editLivro = null;
+        for(MaterialDidatico material : materiaisDidaticos) {
+            if (material.getId() == idLivro) {
+                Livro editLivro = (Livro) material;
+
+                System.out.println("Insira os dados nos campos que deseja editar; deixe em branco o que não for editar.");
+                System.out.println("Título");
+                String titulo = sc.nextLine();
+                editLivro.setTitulo(titulo);
+                System.out.println("Autor: ");
+                String autor = sc.nextLine();
+                editLivro.setAutor(autor);
+                System.out.println("Tipo: ");
+                String tipo = sc.nextLine();
+                editLivro.setTipo(tipo);
+                System.out.println("Seguimento: ");
+                String seguimento = sc.nextLine();
+                editLivro.setSeguimento(seguimento);
+                System.out.println("ISBN: ");
+                String ISBN = sc.nextLine();
+                editLivro.setISBN(ISBN);
+                System.out.println("Valor: ");
+                float valor = sc.nextInt();
+                editLivro.setValor(valor);
+                sc.nextLine();
+                System.out.println("Quantidade: ");
+                int quantidade = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Edicao: ");
+                int edicao = sc.nextInt();
+                sc.nextLine();
+
+                System.out.println("Livro atualizado com sucesso!");
+            }
+        }
+    }
+
+    public void editaApostila(int idApostila) {
+        for(MaterialDidatico material : materiaisDidaticos){
+            if(material.getId() == idApostila) {
+                System.out.println("Insira os dados nos campos que deseja editar; deixe em branco o que não for editar.");
+                System.out.println("Título: ");
+                String titulo = sc.nextLine();
+                material.setTitulo(titulo);
+                System.out.println("Autor: ");
+                String tipo = sc.nextLine();
+                System.out.println("Seguimento: ");
+                String seguimento = sc.nextLine();
+                System.out.println("SKU: ");
+                String SKU = sc.nextLine();
+                System.out.println("Valor: ");
+                float valor = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Quantidade: ");
+                int quantidade = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Volume: ");
+                int volume = sc.nextInt();
+                sc.nextLine();
+
+                System.out.println("Apostila atualizada com sucesso!");
+            }
+        }
+    }
+
     @Override
     public void imprimir() {
 

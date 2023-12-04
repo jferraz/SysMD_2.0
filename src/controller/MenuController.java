@@ -90,7 +90,6 @@ public class MenuController {
     public void consultaTodosMd(){
         try {
             mdController.listarMateriaisDidaticos();
-            mdController.getMateriaisDidaticos();
         } catch (MDNaoEncontradoException e) {
             System.out.println(e.getMessage());
         }
@@ -120,7 +119,7 @@ public class MenuController {
         }
     }
     public void exportaRelacaoMD(){
-        String arquivoExportacao = "C:\\Users\\jborg\\OneDrive\\Documentos\\livros_exportados.txt"; // Defina o caminho para exportação
+        String arquivoExportacao = "C:\\Users\\jborg\\OneDrive\\Documentos\\livros_exportados.txt";
         mdController.exportaLivros(arquivoExportacao);
         System.out.println("Livros exportados para " + arquivoExportacao);
     }
@@ -132,32 +131,21 @@ public class MenuController {
         }
     }
 
-    public void editaMD(){
-        System.out.println("Edição de materiais didáticos\n\n");
-        System.out.println("Insira os novos dados:\n\n");
-        System.out.println("Id:");
-        int id = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Título: ");
-        String titulo = sc.nextLine();
-        System.out.println("Autor: ");
-        String autor = sc.nextLine();
-        System.out.println("Tipo: ");
-        String tipo = sc.nextLine();
-        System.out.println("Seguimento: ");
-        String seguimento = sc.nextLine();
-        System.out.println("ISBN: ");
-        String ISBN = sc.nextLine();
-        System.out.println("Valor: ");
-        float valor = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Quantidade: ");
-        int quantidade = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Edicao: ");
-        int edicao = sc.nextInt();
-        sc.nextLine();
+    public void editaMD() {
+        System.out.println("Selecione o tipo de material a ser editado: \n1 - Livro \n2 - Apostila");
+        int opcao = sc.nextInt();
+        if(opcao == 1) {
+            System.out.println("Insira o Id do livro a ser editado");
+            int idLivro = sc.nextInt();
+            mdController.editaLivro(idLivro);
+        }
+        else if(opcao == 2 ){
+            System.out.println("Insira o Id da apostila a ser editada");
+            int idApostila = sc.nextInt();
+            mdController.editaApostila(idApostila);
+        }
     }
+
 
     public void relatorioFinanceiro() {
     }

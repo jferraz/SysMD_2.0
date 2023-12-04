@@ -65,11 +65,11 @@ public class Main {
             System.out.println("\nSYSMD - Selecione uma opção:\n");
             System.out.println("Usuário: " + usuario.getNome());
             if ("Administrador".equals(usuario.getCargo())) {
-                System.out.println("1 - Cadastro de usuários");
+                System.out.println("1 - Cadastro de Materiais Didáticos");
             }
-            System.out.println("2 - Cadastro de Materiais Didáticos");
-            System.out.println("3 - Consulta MD por id");
-            System.out.println("4 - Consulta todos os livros");
+            System.out.println("2 - Consulta MD por id");
+            System.out.println("3 - Consulta todos MD");
+            System.out.println("4 - Edita MD");
             System.out.println("5 - Importa livros");
             if ("Administrador".equals(usuario.getCargo())) {
                 System.out.println("6 - Excluir livros");
@@ -86,16 +86,16 @@ public class Main {
             switch (opcao) {
 
                 case "1":
-
-                    break;
-                case "2":
                     menuController.cadastraMaterialDidatico();
                     break;
-                case "3":
+                case "2":
                     //menuController
                     break;
-                case "4":
+                case "3":
                     menuController.consultaTodosMd();
+                    break;
+                case "4":
+                    menuController.editaMD();
                     break;
                 case "5":
                     menuController.importaMD();
@@ -115,8 +115,6 @@ public class Main {
                 case "10":
                     fim = true;
                     break;
-                case "11":
-
                 default:
                     System.out.println("Opção inválida, tente novamente.");
                     break;
