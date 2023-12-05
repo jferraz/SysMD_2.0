@@ -1,0 +1,4 @@
+id titulo autor tipo seguimento ISBN valor quantidade edicao
+1 Senhor Tolkien romance literatura 158060-8 50.00 10 15
+2 Dracula BramStoker romance literatura 158060-8 80.00 10 2
+3 Frankenstein MaryShelley romance literatura 158060-8	100.00 30 25

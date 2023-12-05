@@ -99,11 +99,11 @@ public class MenuController {
         System.out.println("Deseja importar um livro ou uma apostila?\n 1 - Livro \n 2 - Apostila");
         int opcao = sc.nextInt();
         if(opcao == 1){
-            String arquivo = "C:\\Users\\jborg\\OneDrive\\Documentos\\livros.txt";
+            String arquivo = "C:/Users/jborg/IdeaProjects/SysMD_2.0/src/livros.txt"; //"C:\\Users\\jborg\\OneDrive\\Documentos\\livros.txt";
             mdController.importaLivros(arquivo);
         }
         else if(opcao == 2){
-            String arquivo = "C:\\Users\\jborg\\OneDrive\\Documentos\\apostilas.txt";
+            String arquivo = "C:\\Estudo\\apostilas.txt"; //"C:\\Users\\jborg\\OneDrive\\Documentos\\apostilas.txt";
             mdController.importaApostilas(arquivo);
         }
         else System.out.println("Opção inválida!");;
@@ -131,6 +131,14 @@ public class MenuController {
         }
     }
 
+    public void exportaApostilaISBN(){
+        try{
+            mdController.imprimeRelatorioSKU();
+        } catch (MDNaoEncontradoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void editaMD() {
         System.out.println("Selecione o tipo de material a ser editado: \n1 - Livro \n2 - Apostila");
         int opcao = sc.nextInt();
@@ -142,7 +150,7 @@ public class MenuController {
         else if(opcao == 2 ){
             System.out.println("Insira o Id da apostila a ser editada");
             int idApostila = sc.nextInt();
-            mdController.editaApostila(idApostila);
+            mdController.editApostila(idApostila);
         }
     }
 
