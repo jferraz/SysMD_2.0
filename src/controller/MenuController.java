@@ -75,36 +75,54 @@ public class MenuController {
         else System.out.println("Opção inválida!");
 
     }
-
-    public void consultaMD(){
-        try {
-            System.out.println("Insira o Id do Livro que deseja buscar: ");
+    //CONSULTAS
+    public void consultas() throws MDNaoEncontradoException {
+        System.out.println("Selecione a consulta desejada: \n1 - Livro por ID\n2 - Todos os livros\n3 - Apostila por ID\n4 - Todas as apostilas\n5 - Todos MD");
+        int opcao = sc.nextInt();
+        if(opcao == 1){
+            System.out.println("Insira o Id do livro que deseja buscar: ");
             int idLivro = sc.nextInt();
             sc.nextLine();
-            MaterialDidatico livro = mdController.buscaMDporId(idLivro);
+            MaterialDidatico livro = mdController.buscaLivroPorId(idLivro);
             System.out.println("Livro " + livro);
-        } catch (MDNaoEncontradoException e) {
-            System.out.println(e.getMessage());
         }
-    }
-    public void consultaTodosMd(){
-        try {
+        if(opcao == 2){
+            mdController.imprimeLivros();
+        }
+        if(opcao == 3){
+            System.out.println("Insira o Id da apostila que deseja buscar: ");
+            int idApostila = sc.nextInt();
+            sc.nextLine();
+            MaterialDidatico apostila = mdController.buscaApostilaPorId(idApostila);
+            System.out.println("Apostila: " + idApostila);
+        }
+        if(opcao == 4){
+            mdController.imprimeApostilas();
+        }
+        if(opcao == 5){
             mdController.listarMateriaisDidaticos();
-        } catch (MDNaoEncontradoException e) {
-            System.out.println(e.getMessage());
         }
     }
+
     public void importaMD(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Deseja importar um livro ou uma apostila?\n 1 - Livro \n 2 - Apostila");
         int opcao = sc.nextInt();
         if(opcao == 1){
-            String arquivo = "C:/Users/jborg/IdeaProjects/SysMD_2.0/src/livros.txt"; //"C:\\Users\\jborg\\OneDrive\\Documentos\\livros.txt";
-            mdController.importaLivros(arquivo);
+            try{
+                String arquivo = "E:/Estudo/SysMD/SysMD_2.0/src/livros.txt";//"C:/Users/jborg/IdeaProjects/SysMD_2.0/src/livros.txt"; //"C:\\Users\\jborg\\OneDrive\\Documentos\\livros.txt";
+                mdController.importaLivros(arquivo);
+            } catch (MDNaoEncontradoException e) {
+                System.out.println(e.getMessage());
+            }
         }
         else if(opcao == 2){
+            try{
             String arquivo = "C:\\Estudo\\apostilas.txt"; //"C:\\Users\\jborg\\OneDrive\\Documentos\\apostilas.txt";
             mdController.importaApostilas(arquivo);
+            } catch (MDNaoEncontradoException e) {
+                System.out.println(e.getMessage());
+            }
         }
         else System.out.println("Opção inválida!");;
     }

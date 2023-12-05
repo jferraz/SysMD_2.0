@@ -3,6 +3,7 @@ import controller.MaterialDidaticoController;
 import controller.MenuController;
 import model.*;
 import util.LoginException;
+import util.MDNaoEncontradoException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Main {
     private static Usuario usuarioAutenticado = null;
     private static List<Usuario> usuarios = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws MDNaoEncontradoException {
         LoginController loginController = new LoginController(usuarios);
 
         usuarios.add(new Administrador(1, "admin", "000111222-99", "admin@sysmd.com", "adm123", "admin", "Administrador"));
@@ -56,7 +57,7 @@ public class Main {
     }
 
 
-    public static void mostraMenuPrincipal(Usuario usuario) {
+    public static void mostraMenuPrincipal(Usuario usuario) throws MDNaoEncontradoException {
         MenuController menuController = new MenuController(mdController);
         Scanner sc = new Scanner(System.in);
         boolean fim = false;
@@ -67,8 +68,8 @@ public class Main {
             if ("Administrador".equals(usuario.getCargo())) {
                 System.out.println("1 - Cadastro de Materiais Didáticos");
             }
-            System.out.println("2 - Consulta MD por id");
-            System.out.println("3 - Consulta todos MD");
+            System.out.println("2 - Consultas de MD");
+            System.out.println("3 - ");
             System.out.println("4 - Edita MD");
             System.out.println("5 - Importa livros");
             if ("Administrador".equals(usuario.getCargo())) {
@@ -78,7 +79,7 @@ public class Main {
                 System.out.println("7 - Relatório financeiro");
             }
             System.out.println("8 - Exporta relatório");
-            System.out.println("9 - Exporta livros por ISBN/Titulo/Autor");
+            System.out.println("9 - Imprime livros por ISBN & Título");
             System.out.println("10 - Sair");
 
             String opcao = sc.nextLine();
@@ -89,10 +90,10 @@ public class Main {
                     menuController.cadastraMaterialDidatico();
                     break;
                 case "2":
-                    //menuController
+                    menuController.consultas();
                     break;
                 case "3":
-                    menuController.consultaTodosMd();
+                    //menuController;
                     break;
                 case "4":
                     menuController.editaMD();

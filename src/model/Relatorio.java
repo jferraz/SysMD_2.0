@@ -28,4 +28,12 @@ public abstract class Relatorio {
     }
 
     public abstract void gerarRelatorio();
+
+    @Override
+    public String toString() {
+        return "Relatorio{" +
+                "id=" + id +
+                ", dataGeracao=" + dataGeracao +
+                '}';
+    }
 }

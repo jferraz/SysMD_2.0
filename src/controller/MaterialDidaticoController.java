@@ -29,15 +29,55 @@ public class MaterialDidaticoController implements Imprimivel {
         if (material instanceof Livro) {
             Livro livro = (Livro) material;//DOWNCASTING
             livroPorISBN.computeIfAbsent(livro.getISBN(), k -> new ArrayList<>()).add(livro);
+            adicionaLivro(livro);
         } else if (material instanceof Apostila) {
             Apostila apostila = (Apostila) material;
             apostilasPorSKU.computeIfAbsent(apostila.getSKU(), k -> new ArrayList<>()).add(apostila);
+            adicionaApostila(apostila);
         }
         materiaisDidaticos.add(material);
     }
-    public void buscaLivroPorId(){
 
+    private void adicionaApostila(Apostila apostila) {
+        apostilas.add(apostila);
     }
+
+    private void adicionaLivro(Livro livro) {
+        livros.add(livro);
+    }
+
+    public Livro buscaLivroPorId(int id) throws MDNaoEncontradoException {
+        for (Livro livro : livros) {
+            if(livro.getId() == id) {
+                return livro;
+            }
+        }
+        throw new MDNaoEncontradoException("Livro com o id " + id + " não cadastrado!");
+    }
+
+    public Apostila buscaApostilaPorId(int id) throws MDNaoEncontradoException {
+        for (Apostila apostila : apostilas) {
+            if(apostila.getId() == id) {
+                return apostila;
+            }
+        }
+        throw new MDNaoEncontradoException("Livro com o id " + id + " não cadastrado!");
+    }
+
+    public Livro imprimeLivros() throws MDNaoEncontradoException {
+        for (Livro livro : livros) {
+            return livro;
+        }
+        throw new MDNaoEncontradoException("Livros não cadastrados!");
+    }
+
+    public Apostila imprimeApostilas() throws MDNaoEncontradoException {
+        for (Apostila apostila : apostilas) {
+            return apostila;
+        }
+        throw new MDNaoEncontradoException("Apostilas não cadastradas!");
+    }
+
     // MÉTODO COM THROWS
     public MaterialDidatico buscaMDporId(int id) throws MDNaoEncontradoException {
         for (MaterialDidatico md : materiaisDidaticos) {
@@ -84,7 +124,10 @@ public class MaterialDidaticoController implements Imprimivel {
     }
 
     // IMPORTACAO DE ARQUIVO
-    public void importaLivros(String arquivo) {
+    public void importaLivros(String arquivo) throws MDNaoEncontradoException {
+        if(arquivo == null){
+            throw new MDNaoEncontradoException("Material didático não encontrado!");
+        }
         try {
             List<String> linhas = Files.readAllLines(Paths.get(arquivo));
             for (int i = 1; i < linhas.size(); i++) {
@@ -108,7 +151,10 @@ public class MaterialDidaticoController implements Imprimivel {
         }
     }
 
-    public void importaApostilas(String arquivo) {
+    public void importaApostilas(String arquivo)throws MDNaoEncontradoException {
+        if(arquivo == null){
+            throw new MDNaoEncontradoException("Material didático não encontrado!");
+        }
         try {
             List<String> linhas = Files.readAllLines(Paths.get(arquivo));
             for (int i = 1; i < linhas.size(); i++) {
@@ -270,4 +316,6 @@ public class MaterialDidaticoController implements Imprimivel {
     public void imprimir() {
 
     }
+
+
 }
