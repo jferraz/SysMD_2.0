@@ -11,6 +11,10 @@ public abstract class Relatorio {
         this.dataGeracao = dataGeracao;
     }
 
+    public Relatorio() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -19,8 +23,9 @@ public abstract class Relatorio {
         this.id = id;
     }
 
-    public Date getDataGeracao() {
-        return dataGeracao;
+    public String getDataGeracao() {
+        System.out.println("Relatório gerado em: ");
+        return "Relatório gerado em: " + dataGeracao;
     }
 
     public void setDataGeracao(Date dataGeracao) {

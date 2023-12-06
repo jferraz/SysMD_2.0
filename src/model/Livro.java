@@ -6,14 +6,19 @@ public class Livro extends MaterialDidatico{
     private int edicao;
 
     public Livro(int id, String titulo, String tipo, String seguimento, float valor, int quantidade, String autor, String ISBN, int edicao) {
-        super(id, titulo, tipo, seguimento, valor, quantidade);
+        super(id, titulo, tipo, seguimento, valor, quantidade, autor, ISBN, edicao);
         this.autor = autor;
         this.ISBN = ISBN;
         this.edicao = edicao;
     }
 
+    public Livro(String titulo, float valor, String ISBN) {
+        super(titulo, valor);
+        this.ISBN = ISBN;
+    }
+
     public String getAutor() {
-        return autor;
+        return "Autor: " + autor;
     }
 
     public void setAutor(String autor) {

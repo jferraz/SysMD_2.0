@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class MenuController {
     private MaterialDidaticoController mdController;
+    private RelatorioController rcController;
 
     public MenuController(MaterialDidaticoController mdController){
         this.mdController = mdController;
@@ -87,7 +88,7 @@ public class MenuController {
             System.out.println("Livro " + livro);
         }
         if(opcao == 2){
-            mdController.imprimeLivros();
+            rcController.imprimeLivros();
         }
         if(opcao == 3){
             System.out.println("Insira o Id da apostila que deseja buscar: ");
@@ -97,10 +98,10 @@ public class MenuController {
             System.out.println("Apostila: " + idApostila);
         }
         if(opcao == 4){
-            mdController.imprimeApostilas();
+            rcController.imprimeApostilas();
         }
         if(opcao == 5){
-            mdController.listarMateriaisDidaticos();
+            rcController.listarMateriaisDidaticos();
         }
     }
 
@@ -109,8 +110,8 @@ public class MenuController {
         System.out.println("Deseja importar um livro ou uma apostila?\n 1 - Livro \n 2 - Apostila");
         int opcao = sc.nextInt();
         if(opcao == 1){
-            try{
-                String arquivo = "E:/Estudo/SysMD/SysMD_2.0/src/livros.txt";//"C:/Users/jborg/IdeaProjects/SysMD_2.0/src/livros.txt"; //"C:\\Users\\jborg\\OneDrive\\Documentos\\livros.txt";
+            try{                  //"E:/Estudo/SysMD/SysMD_2.0/src/livros.txt";
+                String arquivo = "C:/Users/jborg/IdeaProjects/SysMD_2.0/src/livros.txt"; //"C:\\Users\\jborg\\OneDrive\\Documentos\\livros.txt";
                 mdController.importaLivros(arquivo);
             } catch (MDNaoEncontradoException e) {
                 System.out.println(e.getMessage());
@@ -137,21 +138,22 @@ public class MenuController {
         }
     }
     public void exportaRelacaoMD(){
-        String arquivoExportacao = "C:\\Users\\jborg\\OneDrive\\Documentos\\livros_exportados.txt";
+        //String arquivoExportacao = "C:\\Users\\jborg\\OneDrive\\Documentos\\livros_exportados.txt";
+        String arquivoExportacao = "C:\\Users\\jborg\\Documents\\livros_exportados.txt";
         mdController.exportaLivros(arquivoExportacao);
         System.out.println("Livros exportados para " + arquivoExportacao);
     }
     public void exportaLivroISBN(){
         try {
-            mdController.imprimeRelatorioISBN();
+            rcController.imprimeRelatorioISBN();
         } catch (MDNaoEncontradoException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void exportaApostilaISBN(){
+    public void exportaApostilaSKU(){
         try{
-            mdController.imprimeRelatorioSKU();
+            rcController.imprimeRelatorioSKU();
         } catch (MDNaoEncontradoException e) {
             System.out.println(e.getMessage());
         }
@@ -172,7 +174,7 @@ public class MenuController {
         }
     }
 
-
     public void relatorioFinanceiro() {
+        rcController.relatorios.gerarRelatorio();
     }
 }

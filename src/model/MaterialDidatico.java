@@ -8,13 +8,21 @@ public abstract class MaterialDidatico {
     private float valor;
     private int quantidade;
 
-    public MaterialDidatico(int id, String titulo, String tipo, String seguimento, float valor, int quantidade) {
+    public MaterialDidatico() {
         this.id = id;
         this.titulo = titulo;
         this.tipo = tipo;
         this.seguimento = seguimento;
         this.valor = valor;
         this.quantidade = quantidade;
+    }
+
+    public MaterialDidatico(String titulo, float valor) {
+        this.titulo = titulo;
+        this.valor = valor;
+    }
+
+    public MaterialDidatico(int id, String titulo, String tipo, String seguimento, float valor, int quantidade, String autor, String isbn, int edicao) {
     }
 
     public int getId() {

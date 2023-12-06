@@ -19,6 +19,10 @@ public abstract class Usuario implements Autenticavel {
         this.cargo = cargo;
     }
 
+    public Usuario() {
+
+    }
+
     public int getId() {
         return id;
     }

@@ -5,9 +5,13 @@ public class Apostila extends MaterialDidatico{
     private String SKU;
 
     public Apostila(int id, String titulo, String tipo, String seguimento, float valor, int quantidade, int volume, String SKU) {
-        super(id, titulo, tipo, seguimento, valor, quantidade);
+        super();
         this.volume = volume;
         this.SKU = SKU;
+    }
+
+    public Apostila(String titulo, String seguimento){
+        super();
     }
 
     public int getVolume() {

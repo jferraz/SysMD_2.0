@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class MaterialDidaticoController implements Imprimivel {
+public class MaterialDidaticoController {
     private List<Livro> livros;
     private List<Apostila> apostilas;
     private List<MaterialDidatico> materiaisDidaticos;
@@ -18,6 +18,7 @@ public class MaterialDidaticoController implements Imprimivel {
     private Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
 
     Scanner sc = new Scanner(System.in);
+
 
     public MaterialDidaticoController() {
         this.materiaisDidaticos = new ArrayList<>();
@@ -64,29 +65,9 @@ public class MaterialDidaticoController implements Imprimivel {
         throw new MDNaoEncontradoException("Livro com o id " + id + " não cadastrado!");
     }
 
-    public Livro imprimeLivros() throws MDNaoEncontradoException {
-        for (Livro livro : livros) {
-            return livro;
-        }
-        throw new MDNaoEncontradoException("Livros não cadastrados!");
-    }
 
-    public Apostila imprimeApostilas() throws MDNaoEncontradoException {
-        for (Apostila apostila : apostilas) {
-            return apostila;
-        }
-        throw new MDNaoEncontradoException("Apostilas não cadastradas!");
-    }
 
-    // MÉTODO COM THROWS
-    public MaterialDidatico buscaMDporId(int id) throws MDNaoEncontradoException {
-        for (MaterialDidatico md : materiaisDidaticos) {
-            if (md.getId() == id) {
-                return md;
-            }
-        }
-        throw new MDNaoEncontradoException("Material didático com o id " + id + " não cadastrado!");
-    }
+
 
     public void atualizarMD(MaterialDidatico materialAtualizado) {
         for (int i = 0; i < materiaisDidaticos.size(); i++) {
@@ -114,14 +95,7 @@ public class MaterialDidaticoController implements Imprimivel {
 //            System.out.println(livro.toString());
 //        }
 //    }
-    public void listarMateriaisDidaticos() throws MDNaoEncontradoException {
-        if(materiaisDidaticos.isEmpty()) {
-            throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
-        }
-        for (MaterialDidatico material : materiaisDidaticos) {
-            System.out.println(material.toString());
-        }
-    }
+
 
     // IMPORTACAO DE ARQUIVO
     public void importaLivros(String arquivo) throws MDNaoEncontradoException {
@@ -172,6 +146,7 @@ public class MaterialDidaticoController implements Imprimivel {
                 Apostila novaApostila = new Apostila(id, titulo, tipo, seguimento, valor, quantidade, volume, SKU);
                 this.adicionarMD(novaApostila);
             }
+            System.out.println("Arquivo importado com sucesso!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -197,6 +172,7 @@ public class MaterialDidaticoController implements Imprimivel {
                         + livro.getEdicao() + "\t"
                 );
             }
+            System.out.println("Arquivo exportado com sucesso!");
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -210,30 +186,6 @@ public class MaterialDidaticoController implements Imprimivel {
             }
         }
 
-    }
-    //IMPLEMENTAÇÃO DE MAP
-    public void imprimeRelatorioISBN() throws MDNaoEncontradoException {
-        if(livroPorISBN.isEmpty()) {
-            throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
-        }
-        for (Map.Entry<String, List<MaterialDidatico>> entrada : livroPorISBN.entrySet()) {
-            System.out.println("ISBN: " + entrada.getKey());
-            for (MaterialDidatico material : entrada.getValue()) {
-                System.out.println("\nTítulo: " + material.getTitulo());
-            }
-        }
-    }
-
-    public void imprimeRelatorioSKU() throws MDNaoEncontradoException {
-        if(apostilasPorSKU.isEmpty()) {
-            throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
-        }
-        for (Map.Entry<String, List<MaterialDidatico>> entrada : apostilasPorSKU.entrySet()) {
-            System.out.println("ISBN: " + entrada.getKey());
-            for (MaterialDidatico material : entrada.getValue()) {
-                System.out.println("\nTítulo: " + material.getTitulo());
-            }
-        }
     }
 
     public void editaLivro(int idLivro) {
@@ -311,11 +263,4 @@ public class MaterialDidaticoController implements Imprimivel {
             }
         }
     }
-
-    @Override
-    public void imprimir() {
-
-    }
-
-
 }

@@ -12,6 +12,10 @@ public class RelatorioFinanceiro extends Relatorio{
         this.apostilas = apostilas;
     }
 
+    public RelatorioFinanceiro() {
+        super();
+    }
+
     @Override
     public void gerarRelatorio() {
         float valorTotal = 0;
