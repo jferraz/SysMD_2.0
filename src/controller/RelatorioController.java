@@ -8,28 +8,38 @@ import java.util.Map;
 import java.util.*;
 
 public class RelatorioController implements Imprimivel {
-    private List<Apostila> apostilas;
-    private List<Livro> livros;
-    private List<MaterialDidatico> materiaisDidaticos;
+    private static List<Apostila> apostilas;
+    private static List<Livro> livros;
+    private static List<MaterialDidatico> materiaisDidaticos;
     private Map<String, List<MaterialDidatico>> livroPorISBN = new HashMap<>();
     private Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
-
     RelatorioFinanceiro relatorios = new RelatorioFinanceiro();
-
     Scanner sc = new Scanner(System.in);
 
-    public Livro imprimeLivros() throws MDNaoEncontradoException {
-        for (Livro livro : livros) {
-            return livro;
-        }
-        throw new MDNaoEncontradoException("Livros não cadastrados!");
+
+    public RelatorioController() {
+        this.materiaisDidaticos = MaterialDidaticoController.materiaisDidaticos;
+        this.livros = MaterialDidaticoController.livros;
+        this.apostilas = MaterialDidaticoController.apostilas;
+        this.livroPorISBN = MaterialDidaticoController.livroPorISBN;
+        this.apostilasPorSKU = MaterialDidaticoController.apostilasPorSKU;
     }
 
-    public Apostila imprimeApostilas() throws MDNaoEncontradoException {
-        for (Apostila apostila : apostilas) {
-            return apostila;
+    public void imprimeLivros() throws MDNaoEncontradoException {
+        if(livros.isEmpty()){
+            throw new MDNaoEncontradoException("Livros não cadastrados!");
         }
-        throw new MDNaoEncontradoException("Apostilas não cadastradas!");
+        for (Livro livro : livros) {
+            System.out.println(livro);
+        }
+    }
+    public void imprimeApostilas() throws MDNaoEncontradoException {
+        if(apostilas.isEmpty()){
+            throw new MDNaoEncontradoException("Livros não cadastrados!");
+        }
+        for (Apostila apostila : apostilas) {
+            System.out.println(apostila);
+        }
     }
 
     public MaterialDidatico buscaMDporId(int id) throws MDNaoEncontradoException {
@@ -78,7 +88,8 @@ public class RelatorioController implements Imprimivel {
         return relatorios;
     }
     @Override
-    public void imprimir() {
-
+    public void imprimir() throws MDNaoEncontradoException {
+        imprimeLivros();
+        imprimeApostilas();
     }
 }

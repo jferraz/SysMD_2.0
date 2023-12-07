@@ -15,9 +15,9 @@ public class LoginController {
         this.usuarios = usuarios;
     }
 
-    public Usuario autenticar(String nome, String senha) throws LoginException {
+    public Usuario autenticar(String usuario, String senha) throws LoginException {
         for (Usuario usr : usuarios) {
-            if (usr.autenticar(nome, senha)) {
+            if (usr.autenticar(usuario, senha)) {
                 System.out.println("Sucesso!");
                 return usr;
             }

@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class MaterialDidaticoController {
-    private List<Livro> livros;
-    private List<Apostila> apostilas;
-    private List<MaterialDidatico> materiaisDidaticos;
-    private Map<String, List<MaterialDidatico>> livroPorISBN = new HashMap<>();
-    private Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
+    static List<Livro> livros;
+    static List<Apostila> apostilas;
+    static List<MaterialDidatico> materiaisDidaticos;
+    static Map<String, List<MaterialDidatico>> livroPorISBN = new HashMap<>();
+    static Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
 
     Scanner sc = new Scanner(System.in);
 
@@ -24,27 +24,21 @@ public class MaterialDidaticoController {
         this.materiaisDidaticos = new ArrayList<>();
         this.livros = new ArrayList<>();
         this.apostilas = new ArrayList<>();
+        this.livroPorISBN = new HashMap<>();
+        this.apostilasPorSKU = new HashMap<>();
     }
 
     public void adicionarMD(MaterialDidatico material) {
         if (material instanceof Livro) {
             Livro livro = (Livro) material;//DOWNCASTING
+            livros.add(livro);
             livroPorISBN.computeIfAbsent(livro.getISBN(), k -> new ArrayList<>()).add(livro);
-            adicionaLivro(livro);
         } else if (material instanceof Apostila) {
             Apostila apostila = (Apostila) material;
+            apostilas.add(apostila);
             apostilasPorSKU.computeIfAbsent(apostila.getSKU(), k -> new ArrayList<>()).add(apostila);
-            adicionaApostila(apostila);
         }
         materiaisDidaticos.add(material);
-    }
-
-    private void adicionaApostila(Apostila apostila) {
-        apostilas.add(apostila);
-    }
-
-    private void adicionaLivro(Livro livro) {
-        livros.add(livro);
     }
 
     public Livro buscaLivroPorId(int id) throws MDNaoEncontradoException {
@@ -65,10 +59,6 @@ public class MaterialDidaticoController {
         throw new MDNaoEncontradoException("Livro com o id " + id + " não cadastrado!");
     }
 
-
-
-
-
     public void atualizarMD(MaterialDidatico materialAtualizado) {
         for (int i = 0; i < materiaisDidaticos.size(); i++) {
             if (materiaisDidaticos.get(i).getId() == materialAtualizado.getId()) {
@@ -81,10 +71,13 @@ public class MaterialDidaticoController {
     // MÉTODO COM THROWS
     public void removerMD(int id) throws MDNaoEncontradoException {
         boolean removeu = materiaisDidaticos.removeIf(material -> material.getId() == id);
-        if (!removeu) {
+        boolean removeuL = livros.removeIf(material -> material.getId() == id);
+        boolean removeuA = apostilas.removeIf(material -> material.getId() == id);
+        if (!removeu || !removeuL || !removeuA) {
         }
         throw new MDNaoEncontradoException("Material didático com o id " + id + " não cadastrado!");
     }
+
 
     // MÉTODO COM THROWS
 //    public void listarLivros() throws MDNaoEncontradoException {
@@ -117,10 +110,10 @@ public class MaterialDidaticoController {
                 int quantidade = Integer.parseInt(dadosLivro[9].trim());
                 int edicao = Integer.parseInt(dadosLivro[10].trim());
 
-                Livro novoLivro = new Livro(id, titulo, tipo, seguimento, valor, quantidade, autor, ISBN, edicao);
+                Livro novoLivro = new Livro(id,titulo,tipo,seguimento,valor,quantidade,autor,ISBN,edicao);
                 this.adicionarMD(novoLivro);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

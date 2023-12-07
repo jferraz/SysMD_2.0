@@ -1,5 +1,7 @@
 package model;
 
+import util.MDNaoEncontradoException;
+
 public interface Imprimivel {
-    void imprimir();
+    void imprimir() throws MDNaoEncontradoException;
 }

@@ -8,7 +8,7 @@ public abstract class MaterialDidatico {
     private float valor;
     private int quantidade;
 
-    public MaterialDidatico() {
+    public MaterialDidatico(int id, String titulo, String tipo, String seguimento, float valor, int quantidade) {
         this.id = id;
         this.titulo = titulo;
         this.tipo = tipo;
@@ -17,12 +17,8 @@ public abstract class MaterialDidatico {
         this.quantidade = quantidade;
     }
 
-    public MaterialDidatico(String titulo, float valor) {
-        this.titulo = titulo;
-        this.valor = valor;
-    }
+    public MaterialDidatico() {
 
-    public MaterialDidatico(int id, String titulo, String tipo, String seguimento, float valor, int quantidade, String autor, String isbn, int edicao) {
     }
 
     public int getId() {
@@ -36,7 +32,6 @@ public abstract class MaterialDidatico {
     public String getTitulo() {
         return titulo;
     }
-
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -63,6 +58,13 @@ public abstract class MaterialDidatico {
 
     public void setValor(float valor) {
         this.valor = valor;
+    }
+    public void setValor(String valor) {
+        try {
+            this.valor = Float.parseFloat(valor);
+        } catch (NumberFormatException e) {
+            this.valor = 0.0f;
+        }
     }
 
     public int getQuantidade() {

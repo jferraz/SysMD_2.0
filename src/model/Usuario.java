@@ -9,6 +9,10 @@ public abstract class Usuario implements Autenticavel {
     private String senha;
     private String cargo;
 
+    public Usuario() {
+
+    }
+
     public Usuario(int id, String nome, String CPF, String email, String senha, String usuario, String cargo) {
         this.id = id;
         this.nome = nome;
@@ -19,9 +23,12 @@ public abstract class Usuario implements Autenticavel {
         this.cargo = cargo;
     }
 
-    public Usuario() {
-
+    public Usuario(String usuario, String senha, String cargo){
+        this.usuario = usuario;
+        this.senha = senha;
+        this.cargo = cargo;
     }
+
 
     public int getId() {
         return id;
@@ -82,6 +89,10 @@ public abstract class Usuario implements Autenticavel {
     public boolean autenticar(String nome, String senha) {
         return this.getNome().equals(nome) && this.getSenha().equals(senha);
     }
+
+    public String getSenhaFormatada(){
+        return senha.replaceAll(".","*");
+    }
     @Override
     public String toString() {
         return "Usuario{" +
@@ -89,7 +100,7 @@ public abstract class Usuario implements Autenticavel {
                 ", nome='" + nome + '\'' +
                 ", CPF='" + CPF + '\'' +
                 ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
+                ", senha='" + getSenhaFormatada() + '\'' +
                 ", usuario='" + usuario + '\'' +
                 ", cargo='" + cargo + '\'' +
                 '}';

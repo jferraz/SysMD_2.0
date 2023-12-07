@@ -5,7 +5,9 @@ import model.*;
 import util.LoginException;
 import util.MDNaoEncontradoException;
 
+import java.io.Console;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,6 +20,7 @@ public class Main {
 
     public static void main(String[] args) throws MDNaoEncontradoException {
         LoginController loginController = new LoginController(usuarios);
+        Console console = System.console();
 
         usuarios.add(new Administrador(1, "admin", "000111222-99", "admin@sysmd.com", "adm123", "admin", "Administrador"));
         usuarios.add(new AuxiliarCompras(1, "aux_compras", "000111222-88", "aux@sysmd.com", "auxc123", "auxc", "AuxiliarCompras"));
@@ -30,13 +33,16 @@ public class Main {
         while (!autenticado && tentativa > 0) {
 
             System.out.println("\nSYSMD - Insira suas credenciais\n");
+
+            //String nome = console.readLine("Usuário: ");
+            //String senha = Arrays.toString(console.readPassword("Senha: "));
             System.out.println("Usuário");
-            String nome = sc.nextLine();
+            String usuario = sc.nextLine();
             System.out.println("Senha");
             String senha = sc.nextLine();
 
             try {
-                usuarioAutenticado = loginController.autenticar(nome, senha);
+                usuarioAutenticado = loginController.autenticar(usuario, senha);
                 autenticado = true;
 
             } catch (LoginException e) {
