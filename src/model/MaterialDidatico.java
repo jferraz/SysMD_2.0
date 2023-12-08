@@ -21,6 +21,10 @@ public abstract class MaterialDidatico {
 
     }
 
+    public MaterialDidatico(int id, String titulo) {
+
+    }
+
     public int getId() {
         return id;
     }

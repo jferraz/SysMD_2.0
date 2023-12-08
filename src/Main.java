@@ -1,6 +1,7 @@
 import controller.LoginController;
 import controller.MaterialDidaticoController;
 import controller.MenuController;
+import controller.RelatorioController;
 import model.*;
 import util.LoginException;
 import util.MDNaoEncontradoException;
@@ -20,7 +21,6 @@ public class Main {
 
     public static void main(String[] args) throws MDNaoEncontradoException {
         LoginController loginController = new LoginController(usuarios);
-        Console console = System.console();
 
         usuarios.add(new Administrador(1, "admin", "000111222-99", "admin@sysmd.com", "adm123", "admin", "Administrador"));
         usuarios.add(new AuxiliarCompras(1, "aux_compras", "000111222-88", "aux@sysmd.com", "auxc123", "auxc", "AuxiliarCompras"));
@@ -34,8 +34,6 @@ public class Main {
 
             System.out.println("\nSYSMD - Insira suas credenciais\n");
 
-            //String nome = console.readLine("Usuário: ");
-            //String senha = Arrays.toString(console.readPassword("Senha: "));
             System.out.println("Usuário");
             String usuario = sc.nextLine();
             System.out.println("Senha");
@@ -51,7 +49,6 @@ public class Main {
                 tentativa--;
                 System.out.println("Restam " + tentativa + " tentativas.");
             }
-
         }
 
         if (autenticado) {
@@ -62,31 +59,39 @@ public class Main {
         }
     }
 
-
     public static void mostraMenuPrincipal(Usuario usuario) throws MDNaoEncontradoException {
         MenuController menuController = new MenuController(mdController);
+        LoginController login = new LoginController(usuarios);
+        RelatorioController relatorio = new RelatorioController();
         Scanner sc = new Scanner(System.in);
         boolean fim = false;
 
         while (!fim) {
-            System.out.println("\nSYSMD - Selecione uma opção:\n");
-            System.out.println("Usuário: " + usuario.getNome());
+            System.out.println("\n************************************************************");
+            System.out.println("|               SysMD - Selecione uma opção:               |");
+            System.out.println("************************************************************");
+            System.out.println("| Usuário: " + usuario.getNome() + "");
+            System.out.println("| 1 - Cadastro de Materiais Didáticos");
+            System.out.println("| 2 - Consultas de MD");
+            System.out.println("| 3 - Edita MD");
+            System.out.println("| 4 - Importa MD");
+
             if ("Administrador".equals(usuario.getCargo())) {
-                System.out.println("1 - Cadastro de Materiais Didáticos");
-            }
-            System.out.println("2 - Consultas de MD");
-            System.out.println("3 - ");
-            System.out.println("4 - Edita MD");
-            System.out.println("5 - Importa livros");
-            if ("Administrador".equals(usuario.getCargo())) {
-                System.out.println("6 - Excluir livros");
+                System.out.println("| 5 - Excluir MD");
             }
             if ("Administrador".equals(usuario.getCargo())) {
-                System.out.println("7 - Relatório financeiro");
+                System.out.println("| 6 - Relatórios");
             }
-            System.out.println("8 - Exporta relatório");
-            System.out.println("9 - Imprime livros por ISBN & Título");
-            System.out.println("10 - Sair");
+
+            System.out.println("| 7 - Exporta relatório ");
+            System.out.println("| 8 - Imprime MD por ISBN & Título");
+
+            if ("Administrador".equals(usuario.getCargo())) {
+                System.out.println("| 9 - Log de acessos");
+            }
+
+            System.out.println("| 10 - Sair");
+            System.out.println("**********************************************************\n");
 
             String opcao = sc.nextLine();
 
@@ -99,25 +104,25 @@ public class Main {
                     menuController.consultas();
                     break;
                 case "3":
-                    //menuController;
-                    break;
-                case "4":
                     menuController.editaMD();
                     break;
-                case "5":
+                case "4":
                     menuController.importaMD();
                     break;
-                case "6":
+                case "5":
                     menuController.excluiMD();
                     break;
-                case "7":
-                    menuController.relatorioFinanceiro();
+                case "6":
+                    relatorio.relatorios();
                     break;
-                case "8":
+                case "7":
                     menuController.exportaRelacaoMD();
                     break;
-                case "9":
+                case "8":
                     menuController.exportaLivroISBN();
+                    break;
+                case "9":
+                    login.getLogAcessos();
                     break;
                 case "10":
                     fim = true;
@@ -127,6 +132,13 @@ public class Main {
                     break;
 
             }
+            if (!fim) {
+                aguardaEnter(sc);
+            }
         }
+    }
+    private static void aguardaEnter(Scanner scanner) {
+        System.out.println("\nPressione Enter para continuar...");
+        scanner.nextLine();
     }
 }

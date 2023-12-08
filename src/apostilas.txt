@@ -1,16 +1,16 @@
-id	titulo	autor	tipo	descricao	seguimento   valor	volume	quantidade	quantidadeMinima
-1	Kill Me Please	Kelvin	Sports	Poa infirma Kunth	Branch Banking	57	40	84	32
-2	Tribute to a Bad Man	Harbert	Home	Poa infirma Kunth	Turbo Pascal 55	5	72	32
-3	Home Song Stories, The	Joaquin	Garden	Poa infirma Kunth	Document Review	8	49	100	18
-4	The Gambler	Nixie	Industrial	Poa infirma Kunth	Arbitration	62	15	36	29
-5	Munyurangabo	Florence	Tools	Poa infirma Kunth	Web Content Management	26	77	23	82
-6	Vermin	Perry	Garden	Poa infirma Kunth	QPSK 73	93	26	2
-7	Walled In	Hashim	Movies	Poa infirma Kunth	iLife	23	67	54	72
-8	Emotion	Nikita	Garden	Poa infirma Kunth	qRT-PCR	48	17	80	61
-9	House with Laughing Windows, The (Casa dalle finestre che ridono, La)	Delcina	Games	Poa infirma Kunth	YUI	9	88	92	19
-10	You Don't Know Jack	Jermain	Health	Poa infirma Kunth	Rotating Equipment	60	88	19	43
-11	I Want a Dog for Christmas, Charlie Brown	Pasquale	Grocery	Poa infirma Kunth	PNR		11	46	26	28
-12	Time Regained (Temps retrouvé, Le)	Eudora	Computers	Poa infirma Kunth	FDT		42	89	86	37
-13	Following	Barnard	Electronics	Poa infirma Kunth	ISO 27001	65	89	96	46
-14	Elena and Her Men (Paris Does Strange Things) (Elena et les hommes)	Fina	Health	Poa infirma Kunth	VMware Player	98	94	35	76
-15	Wonderful and Loved by All (Underbar och älskad av alla)	Korella	Beauty	Poa infirma Kunth	SDH	28	80	96	85
+id	titulo	tipo	seguimento	quantidade	valor	volume	SKU
+1	Parrot, hawk-headed	Deroptyus accipitrinus	Ensino Funcamental	25	41	1	469156421-7
+2	Dove, laughing	Streptopelia senegalensis	Ensino Funcamental	99	109	1	575186638-X
+3	Zorro, azara's	Pseudalopex gymnocercus	Ensino Funcamental	31	105	1	934502863-3
+4	Sambar	Cervus unicolor	Ensino Funcamental	75	6	3	891698500-5
+5	Kafue flats lechwe	Kobus leche robertsi	Ensino Médio	97	198	3	131538196-6
+6	Common zorro	Dusicyon thous	Ensino Funcamental	47	225	2	286819706-X
+7	Crow, pied	Corvus albus	Ensino Médio	51	125	3	851478069-7
+8	Hawk, ferruginous	Buteo regalis	Ensino Funcamental	18	184	2	049355242-1
+9	Squirrel, european red	Sciurus vulgaris	Ensino Funcamental	29	65	3	977709641-0
+10	Raccoon, common	Procyon lotor	Ensino Médio	1	96	1	444124680-3
+11	Goose, snow	Anser caerulescens	Ensino Funcamental	75	237	2	688184425-5
+12	Wombat, common	Vombatus ursinus	Ensino Funcamental	8	202	3	105194801-0
+13	Springhare	Pedetes capensis	Ensino Funcamental	2	44	2	462896942-6
+14	Magnificent frigate bird	Fregata magnificans	Ensino Infantil	61	23	1	370724536-5
+15	Long-tailed jaeger	Stercorarius longicausus	Ensino Infantil	44	63	2	900971360-1

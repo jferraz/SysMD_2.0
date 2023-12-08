@@ -85,6 +85,7 @@ public abstract class Usuario implements Autenticavel {
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
+
     @Override
     public boolean autenticar(String nome, String senha) {
         return this.getNome().equals(nome) && this.getSenha().equals(senha);

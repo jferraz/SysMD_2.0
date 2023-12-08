@@ -1,6 +1,7 @@
 package controller;
 
 import model.Apostila;
+import model.Exportavel;
 import model.Livro;
 import model.MaterialDidatico;
 import util.MDNaoEncontradoException;
@@ -8,9 +9,11 @@ import util.MDNaoEncontradoException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class MenuController {
+public class MenuController{
     private MaterialDidaticoController mdController;
     public RelatorioController rcController;
+    Exportavel exportador = new MaterialDidaticoController();
+
 
     public MenuController(MaterialDidaticoController mdController){
         this.mdController = mdController;
@@ -119,11 +122,11 @@ public class MenuController {
         int opcao = sc.nextInt();
         try {
             if (opcao == 1) {
-                String arquivo = "E:\\Estudo\\SysMD\\SysMD_2.0\\src\\livros.txt";
+                String arquivo = "src/livros.txt";
                 mdController.importaLivros(arquivo);
                 System.out.println("Livros importados com sucesso!" + arquivo);
             } else if (opcao == 2) {
-                String arquivo = "C:\\Estudo\\apostilas.txt"; //"C:\\Users\\jborg\\OneDrive\\Documentos\\apostilas.txt";
+                String arquivo = "src/apostilas.txt";
                 mdController.importaApostilas(arquivo);
                 System.out.println("Apostilas importadas com sucesso!");
             } else System.out.println("Opção inválida!");
@@ -183,7 +186,4 @@ public class MenuController {
         }
     }
 
-    public void relatorioFinanceiro() {
-        rcController.relatorios.gerarRelatorio();
-    }
 }

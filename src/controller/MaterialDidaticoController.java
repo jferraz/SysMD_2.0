@@ -10,12 +10,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class MaterialDidaticoController {
-    static List<Livro> livros;
-    static List<Apostila> apostilas;
-    static List<MaterialDidatico> materiaisDidaticos;
-    static Map<String, List<MaterialDidatico>> livroPorISBN = new HashMap<>();
-    static Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
+public class MaterialDidaticoController implements Exportavel{
+    public static List<Livro> livros;
+    public static List<Apostila> apostilas;
+    public static List<MaterialDidatico> materiaisDidaticos;
+    public static Map<String, List<MaterialDidatico>> livroPorISBN = new HashMap<>();
+    public static Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
 
     Scanner sc = new Scanner(System.in);
 
@@ -74,8 +74,8 @@ public class MaterialDidaticoController {
         boolean removeuL = livros.removeIf(material -> material.getId() == id);
         boolean removeuA = apostilas.removeIf(material -> material.getId() == id);
         if (!removeu || !removeuL || !removeuA) {
+            throw new MDNaoEncontradoException("Material didático com o id " + id + " não cadastrado!");
         }
-        throw new MDNaoEncontradoException("Material didático com o id " + id + " não cadastrado!");
     }
 
 
@@ -255,5 +255,10 @@ public class MaterialDidaticoController {
                 System.out.println("Apostila atualizada com sucesso!");
             }
         }
+    }
+
+    @Override
+    public void exportarDados() {
+        this.exportaLivros("src/mdExportado.txt");
     }
 }

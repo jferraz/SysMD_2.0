@@ -13,7 +13,8 @@ public class RelatorioController implements Imprimivel {
     private static List<MaterialDidatico> materiaisDidaticos;
     private Map<String, List<MaterialDidatico>> livroPorISBN = new HashMap<>();
     private Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
-    RelatorioFinanceiro relatorios = new RelatorioFinanceiro();
+    RelatorioMD relatorioMD = new RelatorioMD();
+    RelatorioFinanceiro relatorios = new RelatorioFinanceiro(livros, apostilas);
     Scanner sc = new Scanner(System.in);
 
 
@@ -86,6 +87,22 @@ public class RelatorioController implements Imprimivel {
 
     public RelatorioFinanceiro imprimeRF(MaterialDidatico material) {
         return relatorios;
+    }
+
+    public void relatorios() throws MDNaoEncontradoException {
+        System.out.println("Selecione o tipo de relatório desejado:\n");
+        System.out.println("1 - Relatório de Materiais Didáticos \n2 - Relatório de Acessos \n3 - Relatório Financeiro");
+        int opcao = sc.nextInt();
+
+        if(opcao == 1){
+            relatorioMD.gerarRelatorio();
+        }
+        if(opcao == 2){
+
+        }
+        if(opcao == 3){
+            relatorios.imprimir();
+        }
     }
     @Override
     public void imprimir() throws MDNaoEncontradoException {

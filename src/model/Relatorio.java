@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public abstract class Relatorio {
@@ -24,8 +26,9 @@ public abstract class Relatorio {
     }
 
     public String getDataGeracao() {
-        System.out.println("Relatório gerado em: ");
-        return "Relatório gerado em: " + dataGeracao;
+        LocalDateTime agora = LocalDateTime.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return agora.format(formato);
     }
 
     public void setDataGeracao(Date dataGeracao) {

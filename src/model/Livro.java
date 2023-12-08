@@ -12,6 +12,13 @@ public class Livro extends MaterialDidatico{
         this.edicao = edicao;
     }
 
+    public Livro(int id, String titulo, String autor, String ISBN, int edicao) {
+        super(id, titulo);
+        this.autor = autor;
+        this.ISBN = ISBN;
+        this.edicao = edicao;
+    }
+
     public String getAutor() {
         return "Autor: " + autor;
     }
