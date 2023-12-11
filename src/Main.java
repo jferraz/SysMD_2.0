@@ -82,10 +82,10 @@ public class Main {
                 System.out.println("| 5 - Excluir MD");
             }
             if ("Administrador".equals(usuario.getCargo())) {
-                System.out.println("| 6 - Relatórios");
+                System.out.println("| 6 - Relatório financeiro");
             }
 
-            System.out.println("| 7 - Exporta relatório ");
+            System.out.println("| 7 - Exporta relatório em arquivo ");
             System.out.println("| 8 - Imprime MD por ISBN & Título");
 
             if ("Administrador".equals(usuario.getCargo())) {
