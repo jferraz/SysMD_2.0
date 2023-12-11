@@ -70,4 +70,12 @@ public class RelatorioFinanceiro extends Relatorio implements Imprimivel, Vendav
         valorTotalDesconto = valorTotal * percentualDesconto;
     }
 
+    @Override
+    public String toString() {
+        return "RelatorioFinanceiro{" +
+                "percentualDesconto=" + percentualDesconto +
+                ", livros=" + livros +
+                ", apostilas=" + apostilas +
+                "} " + super.toString();
+    }
 }

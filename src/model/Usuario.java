@@ -90,7 +90,6 @@ public abstract class Usuario implements Autenticavel {
     public boolean autenticar(String nome, String senha) {
         return this.getNome().equals(nome) && this.getSenha().equals(senha);
     }
-
     public String getSenhaFormatada(){
         return senha.replaceAll(".","*");
     }

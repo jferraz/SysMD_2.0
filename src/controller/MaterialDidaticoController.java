@@ -220,38 +220,40 @@ public class MaterialDidaticoController implements Exportavel{
         //Livro editLivro = null;
         for(MaterialDidatico material : materiaisDidaticos) {
             if (material.getId() == idLivro) {
-                Livro editLivro = (Livro) material;//DOWNCAST
+                if(material instanceof Livro) {
+                    Livro editLivro = (Livro) material;//DOWNCAST
 
-                System.out.println("Insira os dados nos campos que deseja editar; deixe em branco o que não for editar.");
-                System.out.println("Título");
-                String titulo = sc.nextLine();
-                editLivro.setTitulo(titulo);
-                System.out.println("Autor: ");
-                String autor = sc.nextLine();
-                editLivro.setAutor(autor);
-                System.out.println("Tipo: ");
-                String tipo = sc.nextLine();
-                editLivro.setTipo(tipo);
-                System.out.println("Seguimento: ");
-                String seguimento = sc.nextLine();
-                editLivro.setSeguimento(seguimento);
-                System.out.println("ISBN: ");
-                String ISBN = sc.nextLine();
-                editLivro.setISBN(ISBN);
-                System.out.println("Valor: ");
-                float valor = sc.nextInt();
-                editLivro.setValor(valor);
-                sc.nextLine();
-                System.out.println("Quantidade: ");
-                int quantidade = sc.nextInt();
-                editLivro.setQuantidade(quantidade);
-                sc.nextLine();
-                System.out.println("Edicao: ");
-                int edicao = sc.nextInt();
-                editLivro.setEdicao(edicao);
-                sc.nextLine();
+                    System.out.println("Insira os dados nos campos que deseja editar; deixe em branco o que não for editar.");
+                    System.out.println("Título");
+                    String titulo = sc.nextLine();
+                    editLivro.setTitulo(titulo);
+                    System.out.println("Autor: ");
+                    String autor = sc.nextLine();
+                    editLivro.setAutor(autor);
+                    System.out.println("Tipo: ");
+                    String tipo = sc.nextLine();
+                    editLivro.setTipo(tipo);
+                    System.out.println("Seguimento: ");
+                    String seguimento = sc.nextLine();
+                    editLivro.setSeguimento(seguimento);
+                    System.out.println("ISBN: ");
+                    String ISBN = sc.nextLine();
+                    editLivro.setISBN(ISBN);
+                    System.out.println("Valor: ");
+                    float valor = sc.nextInt();
+                    editLivro.setValor(valor);
+                    sc.nextLine();
+                    System.out.println("Quantidade: ");
+                    int quantidade = sc.nextInt();
+                    editLivro.setQuantidade(quantidade);
+                    sc.nextLine();
+                    System.out.println("Edicao: ");
+                    int edicao = sc.nextInt();
+                    editLivro.setEdicao(edicao);
+                    sc.nextLine();
 
-                System.out.println("Livro atualizado com sucesso!");
+                    System.out.println("Livro atualizado com sucesso!");
+                }
             }
         }
     }
@@ -259,35 +261,37 @@ public class MaterialDidaticoController implements Exportavel{
     public void editApostila(int idApostila) {
         for(MaterialDidatico material : materiaisDidaticos){
             if(material.getId() == idApostila) {
-                Apostila editApostila = (Apostila) material;
+                if(material instanceof Apostila) {
+                    Apostila editApostila = (Apostila) material;
 
-                System.out.println("Insira os dados nos campos que deseja editar; deixe em branco o que não for editar.");
-                System.out.println("Título: ");
-                String titulo = sc.nextLine();
-                editApostila.setTitulo(titulo);
-                System.out.println("Tipo: ");
-                String tipo = sc.nextLine();
-                editApostila.setTipo(tipo);
-                System.out.println("Seguimento: ");
-                String seguimento = sc.nextLine();
-                editApostila.setSeguimento(seguimento);
-                System.out.println("SKU: ");
-                String SKU = sc.nextLine();
-                editApostila.setSKU(SKU);
-                System.out.println("Valor: ");
-                float valor = sc.nextInt();
-                editApostila.setValor(valor);
-                sc.nextLine();
-                System.out.println("Quantidade: ");
-                int quantidade = sc.nextInt();
-                editApostila.setQuantidade(quantidade);
-                sc.nextLine();
-                System.out.println("Volume: ");
-                int volume = sc.nextInt();
-                editApostila.setVolume(volume);
-                sc.nextLine();
+                    System.out.println("Insira os dados nos campos que deseja editar; deixe em branco o que não for editar.");
+                    System.out.println("Título: ");
+                    String titulo = sc.nextLine();
+                    editApostila.setTitulo(titulo);
+                    System.out.println("Tipo: ");
+                    String tipo = sc.nextLine();
+                    editApostila.setTipo(tipo);
+                    System.out.println("Seguimento: ");
+                    String seguimento = sc.nextLine();
+                    editApostila.setSeguimento(seguimento);
+                    System.out.println("SKU: ");
+                    String SKU = sc.nextLine();
+                    editApostila.setSKU(SKU);
+                    System.out.println("Valor: ");
+                    float valor = sc.nextInt();
+                    editApostila.setValor(valor);
+                    sc.nextLine();
+                    System.out.println("Quantidade: ");
+                    int quantidade = sc.nextInt();
+                    editApostila.setQuantidade(quantidade);
+                    sc.nextLine();
+                    System.out.println("Volume: ");
+                    int volume = sc.nextInt();
+                    editApostila.setVolume(volume);
+                    sc.nextLine();
 
-                System.out.println("Apostila atualizada com sucesso!");
+                    System.out.println("Apostila atualizada com sucesso!");
+                }
             }
         }
     }

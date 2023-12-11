@@ -2,7 +2,7 @@ package model;
 
 import java.util.Date;
 
-public class LogAcesso {
+public class LogAcesso implements Autenticavel{
     private String usuario;
     private Date dataHora;
     private boolean sucesso;
@@ -19,5 +19,10 @@ public class LogAcesso {
                 "\nUsuário: " + usuario + '\'' +
                 "\nData e hora: " + dataHora +
                 "\nConseguiu acessar? " + sucesso;
+    }
+
+    @Override
+    public boolean autenticar(String nome, String senha) {
+        return false;
     }
 }
