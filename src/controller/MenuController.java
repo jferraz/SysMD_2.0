@@ -7,13 +7,12 @@ import model.MaterialDidatico;
 import util.MDNaoEncontradoException;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class MenuController{
+public class MenuController implements Exportavel{
     private MaterialDidaticoController mdController;
     public RelatorioController rcController;
-    Exportavel exportador = new MaterialDidaticoController();
-
 
     public MenuController(MaterialDidaticoController mdController){
         this.mdController = mdController;
@@ -48,12 +47,11 @@ public class MenuController{
             sc.nextLine();
             System.out.println("Edicao: ");
             int edicao = sc.nextInt();
-            sc.nextLine();
+            //sc.nextLine();
 
             Livro novoLivro = new Livro(id, titulo, tipo, seguimento, valor, quantidade, autor, ISBN, edicao);
             mdController.adicionarMD(novoLivro);
-        }
-        if(md == 2){
+        } else if(md == 2){
             System.out.println("Insira os dados da apostila\n\n");
             System.out.println("Id:");
             int id = sc.nextInt();
@@ -74,17 +72,17 @@ public class MenuController{
             sc.nextLine();
             System.out.println("Volume: ");
             int volume = sc.nextInt();
-            sc.nextLine();
+            //sc.nextLine();
 
             Apostila novaApostila = new Apostila(id, titulo, tipo, seguimento, valor, quantidade, volume, SKU);
             mdController.adicionarMD(novaApostila);
+        } else {
+            System.out.println("Opção inválida!");
         }
-        else System.out.println("Opção inválida!");
-
     }
     //CONSULTAS
     public void consultas() throws MDNaoEncontradoException {
-        System.out.println("Selecione a consulta desejada: \n1 - Livro por ID\n2 - Todos os livros\n3 - Apostila por ID\n4 - Todas as apostilas\n5 - Todos MD");
+        System.out.println("Selecione a consulta desejada: \n1 - Livro por ID\n2 - Livros ou Apostilas\n3 - Apostila por ID\n4 - Todos os MD");
         int opcao = sc.nextInt();
         if(opcao == 1){
             System.out.println("Insira o Id do livro que deseja buscar: ");
@@ -94,19 +92,16 @@ public class MenuController{
             System.out.println("Livro " + livro);
         }
         if(opcao == 2){
-            rcController.imprimeLivros();
+            rcController.imprimir();
         }
         if(opcao == 3){
             System.out.println("Insira o Id da apostila que deseja buscar: ");
             int idApostila = sc.nextInt();
             sc.nextLine();
             MaterialDidatico apostila = mdController.buscaApostilaPorId(idApostila);
-            System.out.println("Apostila: " + idApostila);
+            System.out.println("Apostila: " + apostila);
         }
         if(opcao == 4){
-            rcController.imprimeApostilas();
-        }
-        if(opcao == 5){
             try{
                 rcController.listarMateriaisDidaticos();
             }catch(MDNaoEncontradoException e){
@@ -128,7 +123,7 @@ public class MenuController{
             } else if (opcao == 2) {
                 String arquivo = "src/apostilas.txt";
                 mdController.importaApostilas(arquivo);
-                System.out.println("Apostilas importadas com sucesso!");
+                System.out.println("Apostilas importadas com sucesso!" + arquivo);
             } else System.out.println("Opção inválida!");
 
         } catch (MDNaoEncontradoException e) {
@@ -149,25 +144,27 @@ public class MenuController{
             System.out.println(e.getMessage());
         }
     }
-    public void exportaRelacaoMD(){
-        String arquivoExportacao = "C:\\Users\\jborg\\OneDrive\\Documentos\\livros_exportados.txt";
-        //String arquivoExportacao = "C:\\Users\\jborg\\Documents\\livros_exportados.txt";
-        mdController.exportaLivros(arquivoExportacao);
-        System.out.println("Livros exportados para " + arquivoExportacao);
-    }
-    public void exportaLivroISBN(){
-        try {
-            rcController.imprimeRelatorioISBN();
-        } catch (MDNaoEncontradoException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
-    public void exportaApostilaSKU(){
-        try{
-            rcController.imprimeRelatorioSKU();
-        } catch (MDNaoEncontradoException e) {
-            System.out.println(e.getMessage());
+    public void imprimeRelatorioMAP(){
+        System.out.println("Selecione o relatório desejado: \n1 - Livro por (Título & ISBN) \n2 - Apostila por (Título & SKU) ");
+        int opcao = sc.nextInt();
+
+        if(opcao == 1){
+            try {
+                rcController.imprimeRelatorioISBN();
+            } catch (MDNaoEncontradoException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        if(opcao == 2){
+            try{
+                rcController.imprimeRelatorioSKU();
+            } catch (MDNaoEncontradoException e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("Opção inválida!");
         }
     }
 
@@ -186,4 +183,13 @@ public class MenuController{
         }
     }
 
+    @Override
+    public void exportarDados() {
+        String arquivoExportacao1 = "src/livroExportado.txt";
+        String arquivoExportacao2 = "src/apostilaExportada.txt";
+        mdController.exportaLivros(arquivoExportacao1);
+        mdController.exportaApostilas(arquivoExportacao2);
+        System.out.println("Livros exportados para " + arquivoExportacao1);
+        System.out.println("Apostilas exportadas para " + arquivoExportacao1);
+    }
 }

@@ -63,6 +63,8 @@ public class Main {
         MenuController menuController = new MenuController(mdController);
         LoginController login = new LoginController(usuarios);
         RelatorioController relatorio = new RelatorioController();
+        RelatorioLogAcesso relatLog = new RelatorioLogAcesso();
+        RelatorioFinanceiro relFin = new RelatorioFinanceiro();
         Scanner sc = new Scanner(System.in);
         boolean fim = false;
 
@@ -113,13 +115,13 @@ public class Main {
                     menuController.excluiMD();
                     break;
                 case "6":
-                    relatorio.relatorios();
+                    relFin.imprimir();
                     break;
                 case "7":
-                    menuController.exportaRelacaoMD();
+                    menuController.exportarDados();
                     break;
                 case "8":
-                    menuController.exportaLivroISBN();
+                    menuController.imprimeRelatorioMAP();
                     break;
                 case "9":
                     login.getLogAcessos();

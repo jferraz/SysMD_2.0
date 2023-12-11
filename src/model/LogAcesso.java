@@ -15,10 +15,9 @@ public class LogAcesso {
 
     @Override
     public String toString() {
-        return "LogAcesso{" +
-                "usuario='" + usuario + '\'' +
-                ", dataHora=" + dataHora +
-                ", sucesso=" + sucesso +
-                '}';
+        return "Dados do log de acesso: " +
+                "\nUsuário: " + usuario + '\'' +
+                "\nData e hora: " + dataHora +
+                "\nConseguiu acessar? " + sucesso;
     }
 }

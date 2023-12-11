@@ -19,7 +19,6 @@ public class MaterialDidaticoController implements Exportavel{
 
     Scanner sc = new Scanner(System.in);
 
-
     public MaterialDidaticoController() {
         this.materiaisDidaticos = new ArrayList<>();
         this.livros = new ArrayList<>();
@@ -40,7 +39,13 @@ public class MaterialDidaticoController implements Exportavel{
         }
         materiaisDidaticos.add(material);
     }
+    public static List<Livro> getLivros() {
+        return livros;
+    }
 
+    public static List<Apostila> getApostilas() {
+        return apostilas;
+    }
     public Livro buscaLivroPorId(int id) throws MDNaoEncontradoException {
         for (Livro livro : livros) {
             if(livro.getId() == id) {
@@ -151,7 +156,7 @@ public class MaterialDidaticoController implements Exportavel{
         try {
             writer = new BufferedWriter(new FileWriter(arquivoExportacao));
             writer.write(
-                    "id\ttitulo\tautor\ttipo\tdescricao\tseguimento\tISBN\tvalor\tvolume\tquantidade\tedicao\n");
+                    "id\ttitulo\tautor\tedicao\tISBN\ttipo\tseguimento\tvalor\tquantidade\tedicao\n");
             for (Livro livro : livros) {
                 writer.write(livro.getId() + "\t"
                         + livro.getTitulo() + "\t"
@@ -180,7 +185,37 @@ public class MaterialDidaticoController implements Exportavel{
         }
 
     }
-
+    public void exportaApostilas(String arquivoExportacao) {
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(arquivoExportacao));
+            writer.write(
+                    "id\ttitulo\ttipo\ttseguimento\tquantidade\tvolume\tvalor\tSKU\n");
+            for (Apostila apostila : apostilas) {
+                writer.write(apostila.getId() + "\t"
+                        + apostila.getTitulo() + "\t"
+                        + apostila.getTipo() + "\t"
+                        + apostila.getSeguimento() + "\t"
+                        + apostila.getQuantidade() + "\t"
+                        + apostila.getVolume() + "\t"
+                        + apostila.getValor() + "\t"
+                        + apostila.getSKU() + "\t"
+                );
+            }
+            System.out.println("Arquivo exportado com sucesso!");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     public void editaLivro(int idLivro) {
         //Livro editLivro = null;
         for(MaterialDidatico material : materiaisDidaticos) {
@@ -260,5 +295,6 @@ public class MaterialDidaticoController implements Exportavel{
     @Override
     public void exportarDados() {
         this.exportaLivros("src/mdExportado.txt");
+        this.exportaApostilas("src/mdExportado.txt");
     }
 }

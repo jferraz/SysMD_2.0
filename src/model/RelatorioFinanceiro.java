@@ -1,43 +1,31 @@
 package model;
 
+import controller.MaterialDidaticoController;
 import util.MDNaoEncontradoException;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RelatorioFinanceiro extends Relatorio implements Imprimivel{
-    private List<Livro> livros = new ArrayList<>();
-    private List<Apostila> apostilas = new ArrayList<>();
-    public RelatorioFinanceiro(List<Livro> livros, List<Apostila> apostilas, int id, Date dataGeracao) {
-        super(id, dataGeracao);
-        this.livros = livros;
-        this.apostilas = apostilas;
-    }
-
-    public RelatorioFinanceiro(List<Livro> livros, List<Apostila> apostilas) {
-        this.livros = livros;
-        this.apostilas = apostilas;
-    }
-
-    public List<Livro> getLivros() {
-        return livros;
-    }
-
-    public void setLivros(List<Livro> livros) {
-        this.livros = livros;
-    }
-
-    public List<Apostila> getApostilas() {
-        return apostilas;
-    }
-
-    public void setApostilas(List<Apostila> apostilas) {
-        this.apostilas = apostilas;
-    }
+public class RelatorioFinanceiro extends Relatorio implements Imprimivel, Vendavel{
+    private double percentualDesconto;
+    private List<Livro> livros;
+    private List<Apostila> apostilas;
 
     public RelatorioFinanceiro() {
+        this.livros = MaterialDidaticoController.getLivros();
+        this.apostilas = MaterialDidaticoController.getApostilas();
+    }
+
+//    public RelatorioFinanceiro(List<Livro> livros, List<Apostila> apostilas) {
+//        this.livros = livros;
+//        this.apostilas = apostilas;
+//    }
+
+    public RelatorioFinanceiro(int id, Date dataGeracao) {
         super();
+        this.livros = new ArrayList<>();
+        this.apostilas = new ArrayList<>();
     }
     @Override
     public void gerarRelatorio() {
@@ -59,6 +47,12 @@ public class RelatorioFinanceiro extends Relatorio implements Imprimivel{
                     ", Quantidade: " + apostila.getQuantidade());
         }
 
+        float valorTotal = calcularPrecoTotal();
+        System.out.println("\nValor total em estoque: " + valorTotal);
+    }
+
+    @Override
+    public float calcularPrecoTotal() {
         float valorTotal = 0;
         for (Livro livro : livros) {
             valorTotal += livro.getValor() * livro.getQuantidade();
@@ -66,6 +60,14 @@ public class RelatorioFinanceiro extends Relatorio implements Imprimivel{
         for (Apostila apostila : apostilas) {
             valorTotal += apostila.getValor() * apostila.getQuantidade();
         }
-        System.out.println("\nValor total em estoque: " + valorTotal);
+        return valorTotal;
     }
+
+    @Override
+    public void aplicarDesconto(float percentualDesconto) {
+        float valorTotalDesconto = 0;
+        float valorTotal = 0;
+        valorTotalDesconto = valorTotal * percentualDesconto;
+    }
+
 }

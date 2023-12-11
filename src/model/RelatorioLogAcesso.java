@@ -11,6 +11,10 @@ public class RelatorioLogAcesso extends Relatorio{
         this.logDeAcesso = logDeAcesso;
     }
 
+    public RelatorioLogAcesso() {
+
+    }
+
     @Override
     public void gerarRelatorio() {
         System.out.println("Log de Acessos: ");

@@ -31,7 +31,8 @@ public class LoginController {
     }
 
     public List<LogAcesso> getLogAcessos() {
-        System.out.println("Acessos: " + logAcessos.size());
+        System.out.println("Número de acessos: " + logAcessos.size());
+        System.out.println(logAcessos);
         return logAcessos;
     }
 }

@@ -14,9 +14,8 @@ public class RelatorioController implements Imprimivel {
     private Map<String, List<MaterialDidatico>> livroPorISBN = new HashMap<>();
     private Map<String, List<MaterialDidatico>> apostilasPorSKU = new HashMap<>();
     RelatorioMD relatorioMD = new RelatorioMD();
-    RelatorioFinanceiro relatorios = new RelatorioFinanceiro(livros, apostilas);
-    Scanner sc = new Scanner(System.in);
 
+    Scanner sc = new Scanner(System.in);
 
     public RelatorioController() {
         this.materiaisDidaticos = MaterialDidaticoController.materiaisDidaticos;
@@ -26,22 +25,7 @@ public class RelatorioController implements Imprimivel {
         this.apostilasPorSKU = MaterialDidaticoController.apostilasPorSKU;
     }
 
-    public void imprimeLivros() throws MDNaoEncontradoException {
-        if(livros.isEmpty()){
-            throw new MDNaoEncontradoException("Livros não cadastrados!");
-        }
-        for (Livro livro : livros) {
-            System.out.println(livro);
-        }
-    }
-    public void imprimeApostilas() throws MDNaoEncontradoException {
-        if(apostilas.isEmpty()){
-            throw new MDNaoEncontradoException("Livros não cadastrados!");
-        }
-        for (Apostila apostila : apostilas) {
-            System.out.println(apostila);
-        }
-    }
+
 
     public MaterialDidatico buscaMDporId(int id) throws MDNaoEncontradoException {
         for (MaterialDidatico md : materiaisDidaticos) {
@@ -78,35 +62,49 @@ public class RelatorioController implements Imprimivel {
             throw new MDNaoEncontradoException("Nenhum material didático cadastrado!");
         }
         for (Map.Entry<String, List<MaterialDidatico>> entrada : apostilasPorSKU.entrySet()) {
-            System.out.println("ISBN: " + entrada.getKey());
+            System.out.println("SKU: " + entrada.getKey());
             for (MaterialDidatico material : entrada.getValue()) {
                 System.out.println("\nTítulo: " + material.getTitulo());
             }
         }
     }
 
-    public RelatorioFinanceiro imprimeRF(MaterialDidatico material) {
-        return relatorios;
-    }
-
-    public void relatorios() throws MDNaoEncontradoException {
-        System.out.println("Selecione o tipo de relatório desejado:\n");
-        System.out.println("1 - Relatório de Materiais Didáticos \n2 - Relatório de Acessos \n3 - Relatório Financeiro");
+//    public void relatorios() throws MDNaoEncontradoException {
+//        System.out.println("Selecione o tipo de relatório desejado:\n");
+//        System.out.println("1 - Relatório de Materiais Didáticos \n2 - Relatório de Acessos \n3 - Relatório Financeiro");
+//        int opcao = sc.nextInt();
+//
+//        if(opcao == 1){
+//            relatorioMD.gerarRelatorio();
+//        }
+//        if(opcao == 2){
+//
+//        }
+//        if(opcao == 3){
+//            relatorios.imprimir();
+//        }
+//    }
+    @Override
+    public void imprimir() throws MDNaoEncontradoException {
+        System.out.println("Selecione o material didático a imprimir:\n");
+        System.out.println("1 - Livros \n2 - Apostilas");
         int opcao = sc.nextInt();
 
         if(opcao == 1){
-            relatorioMD.gerarRelatorio();
+            if(livros.isEmpty()){
+                throw new MDNaoEncontradoException("Livros não cadastrados!");
+            }
+            for (Livro livro : livros) {
+                System.out.println(livro);
+            }
         }
         if(opcao == 2){
-
+            if(apostilas.isEmpty()){
+                throw new MDNaoEncontradoException("Livros não cadastrados!");
+            }
+            for (Apostila apostila : apostilas) {
+                System.out.println(apostila);
+            }
         }
-        if(opcao == 3){
-            relatorios.imprimir();
-        }
-    }
-    @Override
-    public void imprimir() throws MDNaoEncontradoException {
-        imprimeLivros();
-        imprimeApostilas();
     }
 }

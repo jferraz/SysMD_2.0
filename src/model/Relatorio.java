@@ -31,10 +31,6 @@ public abstract class Relatorio {
         return agora.format(formato);
     }
 
-    public void setDataGeracao(Date dataGeracao) {
-        this.dataGeracao = dataGeracao;
-    }
-
     public abstract void gerarRelatorio();
 
     @Override
